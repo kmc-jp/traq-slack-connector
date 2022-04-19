@@ -4,7 +4,7 @@
 
 以下は全て手元環境にて行うことを想定し、他ユーザーが直接アクセスできない環境で行うことを想定します。
 
-NOTE: 本稿は 2022年4月時点の内容であり、無保証です。また、筆者は traP と無関係です。
+NOTE: 本稿は 2022年4月時点の内容であり、無保証です。また、筆者は traQ の開発者とは無関係です。
 
 == 準備
 
@@ -47,9 +47,9 @@ traQ bot console 自体を 先ほど立てた traQ のクライアントとし�
 }
 ----
 
-...
+....
 $ curl -v -c cookie.txt -d @login.json -H "Content-Type: application/json" http://localhost:3000/api/v3/login
-...
+....
 
 HTTP Status Code 204 が返れば成功です。以下では得られた session token が格納された cookie.txt を利用します。
 
@@ -85,7 +85,7 @@ $ git clone --filter=blob:none https://github.com/traPtitech/traQ-bot-console
 $ pushd traQ-bot-console
 ....
 
-`.env` に次のように記します。この際、 `id` は先ほどの
+`.env` に次のように記します。この際、 `id` は先ほどのレスポンスの通りにします。
 
 .env
 ----
