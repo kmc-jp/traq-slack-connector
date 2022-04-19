@@ -58,3 +58,5 @@ Slack で `/traq message` と入力すると `message` が `TRAQ_CHANNEL_ID` で
 - slack-to-traq と traq-to-slack の統合
 - メッセージの編集・削除への対応 
 - リアクション (スタンプ) の転送
+- アイコンの相互転送
+- traQ の表示名を Slack のユーザー名に変更
