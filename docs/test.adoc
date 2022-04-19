@@ -9,6 +9,7 @@ NOTE: 本稿は 2022年4月時点の内容であり、無保証です。また�
 == 準備
 
 手元環境に以下を導入してください。
+
 * Docker
 * Node.js v16
 * yarn
@@ -19,15 +20,15 @@ NOTE: 本稿は 2022年4月時点の内容であり、無保証です。また�
 
 https://github.com/traPtitch/traQ から traQ をダウンロードします。
 
-...
+....
 $ git clone --filter=blob:none https://github.com/traPtitech/traQ
 $ pushd traQ
-...
+....
 
-...
+....
 $ make update-frontend
 $ make up
-...
+....
 
 `http://localhost:3000` にアクセスするとユーザー名 traq, パスワード traq にてログインできます。
 
@@ -38,13 +39,13 @@ traQ bot console 自体を 先ほど立てた traQ のクライアントとし�
 まずは login してセッショントークン `cookie.txt` を取得します。
 
 [source,json]
-login.json
----
+.login.json
+----
 {
    "username" : "traq",
    "password" : "traq"
 }
----
+----
 
 ...
 $ curl -v -c cookie.txt -d @login.json -H "Content-Type: application/json" http://localhost:3000/api/v3/login
@@ -55,8 +56,8 @@ HTTP Status Code 204 が返れば成功です。以下では得られた session
 次に traq bot console をクライアントとして登録します。
 まずは、以下の内容で `oauth2.json` を作成します。
 [source,json]
-oauth2.json
----
+.oauth2.json
+----
 {
    "name" : "traqbotconsole",
    "scopes": [
@@ -65,11 +66,11 @@ oauth2.json
   "description": "traQ bot console",
   "callbackUrl" : "http://localhost:8080/callback"
 }
----
+----
 
-...
+....
 curl -b cookie.txt -v -d @oauth2.json -H "Content-Type: application/json" http://localhost:3000/api/v3/clients
-...
+....
 
 レスポンス中の `id` を控えます。
 
@@ -79,18 +80,18 @@ curl -b cookie.txt -v -d @oauth2.json -H "Content-Type: application/json" http:/
 
 https://github.com/traPtitech/traQ-bot-console.git
 
-...
+....
 $ git clone --filter=blob:none https://github.com/traPtitech/traQ-bot-console
 $ pushd traQ-bot-console
-...
+....
 
 `.env` に次のように記します。この際、 `id` は先ほどの
 
 .env
----
+----
 VUE_APP_API_ENDPOINT="http://localhost:3000/api/v3"
 VUE_APP_API_CLIENT_ID="id"
----
+----
 
 `yarn` 及び `yarn run serve` を実行し、 traQ bot console が起動すれば成功です。
 
