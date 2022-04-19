@@ -1,0 +1,59 @@
+= traQ / Slack 相互接続
+
+traQ と Slack のメッセージを相互転送します。
+
+IMPORTANT: プロトタイプ実装です。予告なく使用方法が変わることがあります。
+
+== 構成方法と使い方
+
+traQ 及び traQ bot console のテスト環境構築方法については省略します。 `docs/test.adoc` を参照してください。
+
+=== Slack App の作成
+
+まず https://api.slack.com/apps から Slack App を作成します。
+その際、Socket Mode を有効化することを推奨します。
+
+次に、OAuth & Permissions から以下の必要な権限を付与し、Slash Commands として `/traq message` を作成します。
+* `chat:write.customize`
+* `commands`
+
+
+また、Slack App を当該ワークスペースにインストールし、App Token, Bot Token を控えます。
+
+最後に、traQ と連携したいチャンネルに Slack Bot を招待します。
+
+=== traQ Bot の作成
+
+traQ BOT Console からBOT を作成し、当該チャンネルに追加します。
+その際、動作モードを WebSocket に設定します。
+
+完了すると BOT ID と BOT Access Token を控えます。
+
+=== traq-to-slack
+
+以下の環境変数を設定し `./traq-to-slack` を実行します。
+traQ でこのBotがいるチャンネルに書き込むと メッセージが `SLACK_CHANNEL_ID` で指定したSlackのチャンネルに送信されます。
+
+* `TRAQ_ACCESS_TOKEN`: traQ のBOT アクセストークン
+* `TRAQ_ORIGIN`: `"ws://localhost:3000"` ないし `ws://q.trap.jp/` など。
+* `SLACK_TOKEN`: `"xoxb-"` から始まる bot token
+* `SLACK_CHANNEL_ID` : 転送先の Slack channel ID。チャンネル名ではないことに留意。
+
+=== slack-to-traq
+
+以下の環境変数を設定し `./traq-to-slack` を実行します。
+Slack で `/traq message` と入力すると `message` が `TRAQ_CHANNEL_ID` で指定した traQ のチャンネルに送信されます。
+
+* `SLACK_APP_TOKEN`: `xapp-` ではじまる Slack の App トークン。
+* `SLACK_BOT_TOKEN`: `xoxb-` ではじまる Slack の Bot トークン。
+* `TRAQ_ACCESS_TOKEN`: traQ のBOT アクセストークン。
+* `TRAQ_HOST`: `localhost:3000` ないし `q.trap.jp` など。
+* `TRAQ_HOST_SCHEME`: `http` または `https`。
+* `TRAQ_CHANNEL_ID` : 転送先の traQ channel ID。チャンネル名ではないことに留意。
+
+
+== TODO
+
+- slack-to-traq と traq-to-slack の統合
+- メッセージの編集・削除への対応 
+- リアクション (スタンプ) の転送
