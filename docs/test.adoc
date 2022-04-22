@@ -42,7 +42,7 @@ traQ bot console 自体を 先ほど立てた traQ のクライアントとし�
 .login.json
 ----
 {
-   "username" : "traq",
+   "name" : "traq",
    "password" : "traq"
 }
 ----
