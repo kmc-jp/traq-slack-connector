@@ -24,6 +24,9 @@ func main() {
 	b.OnMessageCreated(func(p *payload.MessageCreated) {
 		msg := p.Message
 		u := msg.User
+		if u.Bot {
+			return
+		}
 		_, _, err := api.PostMessage(os.Getenv("SLACK_CHANNEL_ID"), slack.MsgOptionText(msg.Text, true), slack.MsgOptionUsername(u.DisplayName))
 		if err != nil {
 			log.Printf("Slack message send error: %+v, message: %+v", err, msg)
