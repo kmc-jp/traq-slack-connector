@@ -5,6 +5,7 @@ import (
 	"github.com/slack-go/slack/socketmode"
 	"log"
 	"os"
+	"fmt"
 
 	"github.com/slack-go/slack"
 	traq "github.com/traPtitech/go-traq"
@@ -38,7 +39,7 @@ func main() {
 
 				client.Ack(*evt.Request, "hoge")
 
-				text := cmd.Text
+				text := fmt.Sprintf("%s: %s", cmd.UserName, cmd.Text)
 
 				postmesreq := traq.NewPostMessageRequest(text)
 
